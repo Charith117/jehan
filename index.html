@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenAI Button Test</title>
+  <script defer src="https://cdn.jsdelivr.net/npm/openai@0.29.0/dist/openai.min.js"></script>
+</head>
+<body>
+
+<button type="button" onclick="testOpenAI()">Test OpenAI</button>
+
+<script>
+  var openai;
+
+  function initOpenAI() {
+    openai = new OpenAI('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');
+  }
+
+  function testOpenAI() {
+    if (!openai) {
+      alert('OpenAI is not initialized. Please wait a moment and try again.');
+      return;
+    }
+
+    openai.complete({
+      engine: "text-davinci-002",
+      prompt: "What is the capital of France?",
+      max_tokens: 150,
+    }).then(function (response) {
+      alert(response.choices[0].text);
+    }).catch(function (error) {
+      console.error('Error making request to OpenAI API:', error);
+    });
+  }
+
+  // Initialize OpenAI when the document is ready
+  document.addEventListener('DOMContentLoaded', initOpenAI);
+</script>
+
+</body>
+</html>
